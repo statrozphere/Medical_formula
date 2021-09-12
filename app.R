@@ -5,31 +5,49 @@ library(shiny)
 sex <- c("Male", "Female")
 
 # Define UI for application 
-ui <- navbarPage(
+ui <- fluidPage(
+    navbarPage(
     "Lazy",
-    tabPanel("Cardiovascular", "Cardiovascular"),
-    navbarMenu("Internal Med",
-      tabPanel("Renal", "Renal",
+    navbarMenu("Cardiovascular",
+      tabPanel("Estimated Glomerular Filtration Rate", "eGFR Cockrouft Gault",
+              #Input Form
+              fluidRow(
+                column(width = 4,
+                  numericInput("age", "Age (Years)", value = 0, min = 0, max=100),
+                  numericInput("wei", "Ideal Body Weight (Kg)", value = 0, min = 0, max=100),
+                  numericInput("cre", "Creatinin Value (mg/dl)", value = 0, min = 0, max=100),
+                  radioButtons("sex", "Gender", sex),
+                  ),
+                  column(width = 6,
+              # Output Pane
+                textOutput("Cockroft Gault"),
+                verbatimTextOutput("egfr")   
+               ))
+              )),
+    navbarMenu("Renal",
+      tabPanel("Estimated Glomerular Filtration Rate", "eGFR Cockrouft Gault",
                #Input Form
-               numericInput("age", "Age (Years)", value = 0, min = 0, max=100),
-               numericInput("wei", "Ideal Body Weight (Kg)", value = 0, min = 0, max=100),
-               numericInput("cre", "Creatinin Value (mg/dl)", value = 0, min = 0, max=100),
-               radioButtons("sex", "Gender", sex),
-               
+               fluidRow(
+                 column(width = 4,
+                  numericInput("age", "Age (Years)", value = 0, min = 0, max=100),
+                  numericInput("wei", "Ideal Body Weight (Kg)", value = 0, min = 0, max=100),
+                  numericInput("cre", "Creatinin Value (mg/dl)", value = 0, min = 0, max=100),
+                  radioButtons("sex", "Gender", sex),
+                 ),
+                 column(width = 6,
                # Output Pane
-               textOutput("cg"),
+               textOutput("Cockroft Gault"),
                verbatimTextOutput("egfr")
                )
-      ),
-    tabPanel("Neurology", "Neurology"),
-    tabPanel("Surgery", "Surgery"),
-    tabPanel("Anes-Intensive", "Anesthesiology & Intensive Care"),
-    tabPanel("Pediatri", "Pediatri")
+            )
+          )
+      )
+  )
 )
     
-    
-    
 
+    
+###############################################################################
 
 # Define server logic 
 server <- function(input, output) {
