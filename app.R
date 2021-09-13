@@ -52,7 +52,7 @@ ui <- fluidPage(
 # Define server logic 
 server <- function(input, output) {
     output$cg <- renderText({
-      "Estimated Glomerular Filtration Rate  ~ Cockroft Goult Formula"
+      "Estimated Glomerular Filtration Rate  ~ Cockroft Gault Formula"
     })
     output$egfr <- renderPrint({
        ifelse(input$sex == "Male", 
